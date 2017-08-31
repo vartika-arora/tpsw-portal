@@ -2,9 +2,7 @@ class HomeController < ApplicationController
   before_action :check
 
   def index
-    # company = Company.all.to_a # only active company
-    # @company = {}
-
+    @companies = Company.where(:start_time=>{:$lte=>DateTime.now+5.hours+30.minutes}, :end_time=>{:$gte=>DateTime.now+5.hours+30.minutes}).to_a
   end
 
 end

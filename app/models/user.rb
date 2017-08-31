@@ -1,6 +1,8 @@
 class User
   include Mongoid::Document
   include Mongoid::Attributes::Dynamic
+  include Mongoid::Timestamps::Created::Short
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -13,10 +15,11 @@ class User
   field :cgpa,                  type: Float
   field :present_address,       type: String, default: ""
   field :permanent_address,     type: String, default: ""
-  field :sgpa,                  type: Array
+  field :sgpa,                  type: Array, default: []
   field :dept,                  type: String, default: ""
   field :phone,                 type: String, default: ""
   field :pan_no,                type: String, default: ""
+  field :placed_at,             type: String, default: ""
 
   field :u_id,                   type: Integer, default: ''
   field :encrypted_password,    type: String, default: ""
