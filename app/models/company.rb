@@ -12,10 +12,16 @@ class Company
   field :intern,                      type: Boolean
   field :start_time,                  type: DateTime
   field :end_time,                    type: DateTime
+  field :u_id,                        type: Integer
 
   after_save :add_fields_to_user
   validates_presence_of :name, :departments, :columns, :start_time, :end_time
+  before_create :assign_uid
   has_many :registrations
+
+  def assign_uid
+    self.u_id=User.last.u_id + 1
+  end
 
   def add_fields_to_user
     new_fields = []

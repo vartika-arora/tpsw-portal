@@ -17,25 +17,26 @@
 //= require_tree
 
 function submit_f(){
-	var token = arguments[2];
-	var company = arguments[1];
+	var token = $('meta[name=csrf-token]').attr('content');
+	var company_uid = arguments[0];
+	var company_name = arguments[1];
 	$.ajax({
 					type: "POST",
 					url: "/register"+"?&authenticity_token=" + token,
 					beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-					data: {"roll": arguments[0], "company":arguments[1]},
+					data: {"company_uid":company_uid},
 					success: function(result){
 						if(result.status==='OK'){
-							$('#flash_'+company).html('<b>Successfully Registered for '+company+'</b>')
+							$('#flash_'+company_uid).html('<blockquote>Successfully Registered for '+company_name+'</blockquote>')
 							// $('#flash').css('background-color: #41d016; color:#ffffff')
-							$('#flash_'+comapny).delay(500).fadeIn('normal', function() {
+							$('#flash_'+comapny_uid).delay(500).fadeIn('normal', function() {
       					$(this).delay(2500).fadeOut();
    					  });
 						}
 						else{
-							$('#flash_'+company).html('<b>Error: ' + result.reason + '</b>')
+							$('#flash_'+company_uid).html('<blockquote>Error: ' + result.reason + '</blockquote>')
 							// $('#flash').css('background-color: #e61313; color:#ffffff')
-							$('#flash_'+comapny).delay(500).fadeIn('normal', function() {
+							$('#flash_'+company_uid).delay(500).fadeIn('normal', function() {
       					$(this).delay(2500).fadeOut();
    					  });
 						}

@@ -7,42 +7,45 @@
     <% @companies.each do |company| %>
       <div class="col s12 m12 l4">
         <nav>
-          <span style="font-size: 20px;" class="brand-logo"><%= company.name %></span>
+          <span style="font-size: 20px;" class="brand-logo"><%= company[:name] %></span>
         </nav>
         <div class="card">
           <div class="card-content" >
 
-            <h6><%= company.offer %></h6>
-            <blockquote><%= company.description %></blockquote>
+            <h6><%= company[:offer] %></h6>
+            <blockquote><%= company[:description] %></blockquote>
             <h6><b>Eligible Departments</b></h6>
-            <%= company.departments %>
-            <span style="margin-top: 10%;" class="card-title activator">Apply<i class="material-icons right">more_vert</i></span>
-          </div>
-          <div class="card-reveal">
-            <span class="card-title">FORM<i class="material-icons right">close</i></span>
-              <div>
-                <!-- <p id="flash_<%=company[:id_name]%>"></p> -->
-              </div>
-              <!-- <input placeholder="15/IT/XX" id="roll_<%=company[:id_name]%>" type="text"> -->
-              <input placeholder="15/IT/XX" type="text">
-              <!-- <%= hidden_field_tag(:company, "#{company[:name]}") %> -->
-              <!-- <a class="waves-effect waves-light btn" id="<%=company[:id_name] %>" >Submit</a> -->
-              <a class="waves-effect waves-light btn">Submit</a>
-
-          </div>
+            <%= company[:departments] %>
+            <br/>
+            <% if company[:placement] %>
+              <b>Placement</b>
+            <% end %>
+            <% if company[:placement] and company[:intern] %>
+              and
+            <% end %>
+            <% if company[:intern]%>
+              <b>Intern</b>
+            <% end %>
+            <p id="flash_<%=company[:u_id]%>"></p>
+            <br/>
+            <% if user_signed_in? %>
+              <a class="waves-effect waves-light btn" id="<%= company[:u_id] %>" >Apply</a>
+            <% end %>
+            </div>
         </div>
       </div>
       <script>
       $(document).ready(function(){
-          $("#<%= company[:id_name] %>").click(function(){
-              var roll = $("#roll_<%=company[:id_name]%>").val()
-              var company = "<%= company[:id_name]%>"
-              var token = $('meta[name=csrf-token]').attr('content');
-              submit_f(roll,company,token);
+          $("#<%= company[:u_id] %>").click(function(){
+              var company_uid = "<%= company[:u_id] %>"
+              var company_name = "<%= company[:name] %>"
+              // var token = $('meta[name=csrf-token]').attr('content');
+              submit_f(company_uid,company_name);
 
           });
       });
       </script>
     <% end %>
   </div>
+
 </div>
