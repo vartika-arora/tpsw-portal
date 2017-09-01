@@ -52,6 +52,7 @@ class User
   # validates :uid, uniqueness: true
   before_create :assign_uid
   before_save :enforce_standard
+  has_many :registrations
 
   def assign_uid
     self.u_id=User.last.u_id + 1

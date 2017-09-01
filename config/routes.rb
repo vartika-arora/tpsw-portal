@@ -10,5 +10,6 @@ Rails.application.routes.draw do
   get '/user/update_form' => 'user#update_form', as: 'force_update'
   post '/user/update_form' => 'user#save_update', as: ''
   get '/user/profile/:uid' => 'user#profile', as: 'users'
+  post 'register' => 'home#register', as: 'register'
 
 end

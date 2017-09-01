@@ -15,11 +15,7 @@ class Company
 
   after_save :add_fields_to_user
   validates_presence_of :name, :departments, :columns, :start_time, :end_time
-  before_create :change_time
-
-  def change_time
-
-  end
+  has_many :registrations
 
   def add_fields_to_user
     new_fields = []
