@@ -12,5 +12,34 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require materialize-sprockets
 //= require turbolinks
-//= require_tree .
+//= require_tree
+
+function submit_f(){
+	var token = arguments[2];
+	var company = arguments[1];
+	$.ajax({
+					type: "POST",
+					url: "/register"+"?&authenticity_token=" + token,
+					beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+					data: {"roll": arguments[0], "company":arguments[1]},
+					success: function(result){
+						if(result.status==='OK'){
+							$('#flash_'+company).html('<b>Successfully Registered for '+company+'</b>')
+							// $('#flash').css('background-color: #41d016; color:#ffffff')
+							$('#flash_'+comapny).delay(500).fadeIn('normal', function() {
+      					$(this).delay(2500).fadeOut();
+   					  });
+						}
+						else{
+							$('#flash_'+company).html('<b>Error: ' + result.reason + '</b>')
+							// $('#flash').css('background-color: #e61313; color:#ffffff')
+							$('#flash_'+comapny).delay(500).fadeIn('normal', function() {
+      					$(this).delay(2500).fadeOut();
+   					  });
+						}
+					},
+				});
+
+}

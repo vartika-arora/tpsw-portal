@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Tpsw</title>
+    <title>TPSW</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -9,12 +9,15 @@
   </head>
 
   <body>
-    <% if current_user.nil? %>
-    	<%= link_to new_user_session_path do %>Sign in<% end %>
-    <% else %>
-      <%= current_user.name %><br/>
-    	<%= link_to destroy_user_session_path, method: :delete do %>Sign Out<% end %>
+    <div class="card">
+      <span class="card-title">NIT Durgapur Placements/Interns</span>
+      <% if current_user.nil? %>
+    	  <%= link_to new_user_session_path do %>Sign in<% end %>
+      <% else %>
+        <%= current_user.name %><br/>
+    	  <%= link_to destroy_user_session_path, method: :delete do %>Sign Out<% end %>
     <% end %>
+  </div>
     <br/>
     <%- flash.each do |name, msg| -%>
     <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
