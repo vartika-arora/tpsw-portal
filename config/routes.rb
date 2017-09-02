@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   root 'home#index'
   get 'home/index'
 
-  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  authenticate :user, ->(user) { user.roles_mask == 1 } do
+    mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  end
   devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
