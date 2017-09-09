@@ -20,6 +20,7 @@ class User
   field :phone,                 type: String, default: ""
   field :pan_no,                type: String, default: ""
   field :placed_at,             type: String, default: ""
+  field :ug_pg,                 type: String, default: ""
 
   field :u_id,                   type: Integer, default: ''
   field :encrypted_password,    type: String, default: ""
@@ -53,6 +54,7 @@ class User
   before_create :assign_uid
   before_save :enforce_standard
   has_many :registrations
+  validates_uniqueness_of :roll_no
 
   def assign_uid
     self.u_id=User.last.u_id + 1

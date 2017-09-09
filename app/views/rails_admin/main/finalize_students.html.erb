@@ -1,0 +1,45 @@
+<h1>Finalize </h1>
+These are registered students for <%= @object.name %>
+<br/><br/>
+
+<!-- Placement Students List -->
+<% fields =  @object.columns.split(',') %>
+<% if @object.placement? %>
+  <b>List of Placement Students</b>
+  <table>
+    <tr>
+      <% fields.each do |field| %>
+        <th><%= field %></th>
+      <% end %>
+    </tr>
+
+    <% @object.registrations.where(type:"placement").each do |registration| %>
+    <tr>
+      <% fields.each do |field| %>
+        <td><%= registration.user[field] %></td>
+      <% end %>
+    </tr>
+    <% end %>
+  </table>
+<% end %>
+
+<!-- Intern Students List -->
+<br/><br/>
+<% if @object.intern? %>
+  <b>List of intern Students</b><br/>
+  <table>
+    <tr>
+      <% fields.each do |field| %>
+        <th><%= field %></th>
+      <% end %>
+    </tr>
+
+    <% @object.registrations.where(type:"intern").each do |registration| %>
+    <tr>
+      <% fields.each do |field| %>
+        <td><%= registration.user[field] %></td>
+      <% end %>
+    </tr>
+    <% end %>
+  </table>
+<% end %>

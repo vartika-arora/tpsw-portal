@@ -1,5 +1,7 @@
-RailsAdmin.config do |config|
+require Rails.root.join('lib', 'rails_admin', 'finalize_students.rb')
+RailsAdmin::Config::Actions.register(MyApp::Admin::Actions::FinalizeStudents)
 
+RailsAdmin.config do |config|
   ### Popular gems integration
 
   # == Devise ==
@@ -31,6 +33,7 @@ RailsAdmin.config do |config|
     bulk_delete
     show
     edit
+    finalize_students
     delete
     show_in_app
 
