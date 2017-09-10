@@ -1,27 +1,87 @@
 <!DOCTYPE html>
+<style type="text/css">
+  #hideMe {
+    -moz-animation: cssAnimation 0s ease-in 2s forwards;
+    /* Firefox */
+    -webkit-animation: cssAnimation 0s ease-in 2s forwards;
+    /* Safari and Chrome */
+    -o-animation: cssAnimation 0s ease-in 2s forwards;
+    /* Opera */
+    animation: cssAnimation 0s ease-in 2s forwards;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+@keyframes cssAnimation {
+    to {
+        width:0;
+        height:0;
+        overflow:hidden;
+    }
+}
+@-webkit-keyframes cssAnimation {
+    to {
+        width:0;
+        height:0;
+        visibility:hidden;
+    }
+}
+</style>
+
+
+
+
 <html>
   <head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>TPSW</title>
     <%= csrf_meta_tags %>
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <div class="card">
-      <span class="card-title">NIT Durgapur Placements/Interns</span>
-      <% if current_user.nil? %>
-    	  <%= link_to new_user_session_path do %>Sign in<% end %>
-      <% else %>
-        <%= current_user.name %><br/>
-    	  <%= link_to destroy_user_session_path, method: :delete do %>Sign Out<% end %>
-    <% end %>
-  </div>
+    
+    <div>
+      <nav style="background-color: rgb(27, 170, 170)">
+        <div class="nav-wrapper">
+          <font style="font-size: 200%; padding: 1em"> NIT Durgapur Placement Portal</font>
+          
+          <ul id="dropdown1" class="dropdown-content">
+          <li><a href="/users/edit">Profile</a></li>
+          <li class="divider"></li>
+          <li> <%= link_to destroy_user_session_path, method: :delete do %>Sign Out<% end %></li>
+          </ul>
+
+          <ul id="nav-mobile" class="right hide-on-med-and-down">  
+            <li style="font-size: 150%">
+            <% if current_user!=nil %>
+              <%= current_user.name %>
+            <% else %>
+              <%= link_to new_user_session_path do %>Log in/Sign up<% end %>
+            <% end %>
+            </li>
+            <% if current_user!=nil %>
+            <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><i class="material-icons right" style="font-size: 350%">apps</i></a></li>
+            <% end %>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    
+
+
     <br/>
+    
+    
     <%- flash.each do |name, msg| -%>
-    <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
-    <%- end -%>
-    <%= yield %>
+    <div id='hideMe' align="right" style="color: #64dd17">
+        <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
+        </div>
+        <%- end -%>
+    </div>
+      <%= yield %>
+
+
   </body>
 </html>
