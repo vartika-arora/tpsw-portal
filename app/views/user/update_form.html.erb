@@ -1,3 +1,77 @@
-<% @blank_fields.each do |field| %>
- <%= field %><br/>
-<%end%>
+<style>
+	@import url(https://fonts.googleapis.com/css?family=Fjalla+One);
+	@import url(https://fonts.googleapis.com/css?family=Asap);
+	.container 	{
+					opacity: 1;
+				}	
+	.rowheader 	{ 
+					background-color: #e65100;
+					padding:2em;
+					color: #ffe0b2;
+					font-family: Fjalla One;
+				}
+
+	.rowbody 	{
+					background-image: linear-gradient(to top, #ffffff, #ffffff);
+					padding:2em;
+					border: 1px; 
+					color:#6a1b9a;
+					font-size: 150%;
+					font-family: Asap;
+    				text-transform: capitalize;
+    			}
+
+</style>
+
+<div class="container">
+    <div class="row" >
+        <div class="col s12 m12">
+            <div class="card">
+                <div align="center">
+                    <span class="card-title" ><h2>Update Information</h2></span>
+                </div>
+        	    <div class="card-content">
+        	 	    <div class="container">
+					    <form action='/user/update_form' method='post'>
+					    	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+					      	<ul>
+					        	<% @blank_fields.each do |field| %>
+						        	<div class="input-field col s12">
+						        		<% if field == "roll_no"%>
+						        			<input id = "user[<%=field%>]" placeholder="15/IT/XX" name="user[<%=field%>]" type="text" class="validate">
+							        		<label for="user[<%=field%>]">
+							        			<font><%= field.split('_').map(&:capitalize).join(' ') %>
+							        				<span class="req">*</span>
+							        			</font>
+							        		</label>
+							        	<% elsif field == "phone" %>
+						        			<input id = "user[<%=field%>]" placeholder="10 digit" name="user[<%=field%>]" type="text" class="validate">
+							        		<label for="user[<%=field%>]">
+							        			<font><%= field.split('_').map(&:capitalize).join(' ') %>
+							        				<span class="req">*</span>
+							        			</font>
+							        		</label>
+							        	<% else %>
+							        		<input id = "user[<%=field%>]" name="user[<%=field%>]" type="text" class="validate">
+							        		<label for="user[<%=field%>]">
+								        		<font><%= field.split('_').map(&:capitalize).join(' ') %>
+								        			<span class="req">*</span>
+								        		</font>
+							        		</label>
+						        		<% end %>
+							        </div>
+						        <%end%>
+					        	<div align="center">
+									<button class="btn waves-effect waves-light" type="submit" value="Submit" name="action">
+									   SUBMIT
+									   <i class="material-icons right">send</i>
+									</button>
+						        </div>
+					        </ul>
+					    </form>
+				    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ </div>

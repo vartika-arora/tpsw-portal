@@ -18,5 +18,28 @@ class UserController < ApplicationController
      redirect_to root_path
    end
  end
+ 
+ def save_update
+  restricted_fields = [ "_id" , "encrypted_password" , "sign_in_count" , "roles_mask" , "reset_password_token" ,
+            "reset_password_sent_at" , "remember_created_at" , "sign_in_count" , "u_id" , "placed_at" ,
+            "current_sign_in_at"  , "last_sign_in_at" , "current_sign_in_ip" , "last_sign_in_ip" ]
+  params[:user].each do |key,value|
+    if restricted_fields.include?(key)
+      next
+    else
+      if key == "sgpa"
+        current_user[key]=value.split(" ")
+      else
+        current_user[key]=value unless value.blank?
+      end
+
+    end
+  end
+    if current_user.save
+      redirect_to root_path
+    else
+      redirect_to force_update_path
+    end
+ end
 
 end
