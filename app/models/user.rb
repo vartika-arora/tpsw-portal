@@ -51,7 +51,7 @@ class User
   # field :locked_at,       type: Time
 
   # validates :uid, uniqueness: true
-  before_create :assign_uid
+  #before_create :assign_uid
   before_save :enforce_standard
   has_many :registrations
   validates_uniqueness_of :roll_no
