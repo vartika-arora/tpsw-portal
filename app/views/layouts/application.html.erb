@@ -57,14 +57,7 @@
             <% if current_user!=nil %>
               <%= current_user.name %>
             <% else %>
-              <%= link_to new_user_session_path do %>Log in<% end %>
-            <% end %>
-            </li>
-            <li style="font-size: 150%">
-            <% if current_user!=nil %>
-              <%= current_user.name %>
-            <% else %>
-              <%= link_to new_user_registration_path do %>Sign up<% end %>
+              <%= link_to new_user_session_path do %>Log in/Sign up<% end %>
             <% end %>
             </li>
             <% if current_user!=nil %>
