@@ -40,7 +40,7 @@
   </head>
 
   <body>
-    
+
     <div>
       <nav style="background-color: rgb(27, 170, 170);">
         <div class="nav-wrapper">
@@ -52,12 +52,19 @@
           <li> <%= link_to destroy_user_session_path, method: :delete do %>Sign Out<% end %></li>
           </ul>
 
-          <ul id="nav-mobile" class="right hide-on-med-and-down">  
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li style="font-size: 150%">
             <% if current_user!=nil %>
               <%= current_user.name %>
             <% else %>
-              <%= link_to new_user_session_path do %>Log in/Sign up<% end %>
+              <%= link_to new_user_session_path do %>Log in<% end %>
+            <% end %>
+            </li>
+            <li style="font-size: 150%">
+            <% if current_user!=nil %>
+              <%= current_user.name %>
+            <% else %>
+              <%= link_to new_user_registration_path do %>Sign up<% end %>
             <% end %>
             </li>
             <% if current_user!=nil %>
@@ -68,12 +75,12 @@
       </nav>
     </div>
 
-    
+
 
 
     <br/>
-    
-    
+
+
     <%- flash.each do |name, msg| -%>
     <div id='hideMe' align="right" style="color: #64dd17;padding-right: 2em">
         <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
